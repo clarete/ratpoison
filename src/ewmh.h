@@ -23,5 +23,6 @@
 
 void init_ewmh (void);
 void ewmh_set_number_of_desktops (void);
+void ewmh_set_current_desktop (int group);
 
 #endif
