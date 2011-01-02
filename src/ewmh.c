@@ -48,3 +48,15 @@ init_ewmh (void)
                    XA_WINDOW, 32, PropModeReplace,
                    (unsigned char *) data, 1);
 }
+
+void
+ewmh_set_number_of_desktops (void)
+{
+  unsigned long data[1];
+
+  data[0] = list_size (&rp_groups);
+  XChangeProperty (dpy, DefaultRootWindow (dpy),
+                   XInternAtom (dpy, "_NET_NUMBER_OF_DESKTOPS", False),
+                   XA_CARDINAL, 32, PropModeReplace,
+                   (unsigned char *) data, 1);
+}

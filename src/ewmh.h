@@ -22,5 +22,6 @@
 #define EWMH_H
 
 void init_ewmh (void);
+void ewmh_set_number_of_desktops (void);
 
 #endif
