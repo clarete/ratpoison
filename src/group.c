@@ -31,6 +31,8 @@ set_current_group_1 (rp_group *g)
   rp_current_group = g;
   if (g)
     g->last_access = counter++;
+
+  ewmh_set_number_of_desktops ();
 }
 
 void
@@ -169,6 +171,7 @@ group_add_new_group (char *name)
 
   list_add_tail (&g->node, &rp_groups);
 
+  ewmh_set_number_of_desktops ();
   return g;
 }
 
@@ -661,6 +664,7 @@ group_delete_group (rp_group *g)
 
       list_del (&(g->node));
       group_free (g);
+      ewmh_set_number_of_desktops ();
       return GROUP_DELETE_GROUP_OK;
     }
   else
