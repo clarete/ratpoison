@@ -719,6 +719,13 @@ main (int argc, char *argv[])
   initialize_default_keybindings ();
   history_load ();
 
+  /* Reading startup files *before* scanning for windows. This
+   * precedence is important to make ratpoison aware of which windows
+   * the user set as unmanaged. */
+  read_startup_files (alt_rcfile);
+  if (alt_rcfile)
+    free (alt_rcfile);
+
   /* Scan for windows */
   if (screen_arg)
     {
@@ -733,10 +740,6 @@ main (int argc, char *argv[])
           scanwins (&screens[i]);
         }
     }
-
-  read_startup_files (alt_rcfile);
-  if (alt_rcfile)
-    free (alt_rcfile);
 
   /* Indicate to the user that ratpoison has booted. */
   if (defaults.startup_message)
