@@ -78,6 +78,7 @@ Atom _net_supported;
 Atom _net_wm_window_type;
 Atom _net_wm_window_type_dialog;
 Atom _net_wm_name;
+Atom _net_supporting_wm_check;
 
 LIST_HEAD (rp_screens);
 rp_screen *rp_current_screen;

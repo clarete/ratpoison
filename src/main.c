@@ -403,6 +403,8 @@ main (int argc, char *argv[])
   _net_wm_window_type = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
   _net_wm_window_type_dialog = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
   _net_wm_name = XInternAtom(dpy, "_NET_WM_NAME", False);
+  _net_supporting_wm_check =
+    XInternAtom (dpy, "_NET_SUPPORTING_WM_CHECK", False);
 
   /* Setup signal handlers. */
   XSetErrorHandler(handler);
@@ -422,6 +424,7 @@ main (int argc, char *argv[])
   init_window_stuff ();
   init_xrandr ();
   init_screens ();
+  init_ewmh ();
 
   init_frame_lists ();
   update_modifier_map ();
