@@ -87,6 +87,7 @@ extern XGCValues gv;
 #include "hook.h"
 #include "xinerama.h"
 #include "format.h"
+#include "ewmh.h"
 
 void clean_up (void);
 rp_screen *find_screen (Window w);
