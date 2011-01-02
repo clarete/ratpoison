@@ -33,6 +33,7 @@ set_current_group_1 (rp_group *g)
     g->last_access = counter++;
 
   ewmh_set_number_of_desktops ();
+  ewmh_set_current_desktop (g->number);
 }
 
 void
