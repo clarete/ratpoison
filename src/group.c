@@ -34,6 +34,7 @@ set_current_group_1 (rp_group *g)
 
   ewmh_set_number_of_desktops ();
   ewmh_set_current_desktop (g->number);
+  ewmh_set_client_list ();
 }
 
 void
@@ -350,6 +351,8 @@ group_insert_window (struct list_head *h, rp_window_elem *w)
     }
 
   list_add_tail(&w->node, h);
+  ewmh_set_wm_desktop (w->win);
+  ewmh_set_client_list ();
 }
 
 static int
@@ -394,6 +397,8 @@ group_add_window (rp_group *g, rp_window *w)
 
   /* Finally, add it to our list. */
   list_add_tail (&we->node, &g->unmapped_windows);
+  ewmh_set_wm_desktop (we->win);
+  ewmh_set_client_list ();
 }
 
 void
@@ -484,6 +489,7 @@ groups_del_window (rp_window *win)
     {
       group_del_window (cur, win);
     }
+  ewmh_set_client_list ();
 }
 
 rp_window *
