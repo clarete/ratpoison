@@ -72,3 +72,45 @@ ewmh_set_current_desktop (int group)
                    XA_CARDINAL, 32, PropModeReplace,
                    (unsigned char *) data, 1);
 }
+
+void
+ewmh_set_client_list ()
+{
+  rp_window_elem *we;
+  int count, i, j;
+  Window *windows, *stacked_windows;
+
+  count = list_size (&rp_current_group->mapped_windows);
+  windows = xmalloc (sizeof (Window) * count);
+  stacked_windows = xmalloc (sizeof (Window) * count);
+  i = 0;
+
+  list_for_each_entry (we, &rp_current_group->mapped_windows, node)
+    windows[i++] = we->win->w;
+  for (i = 0, j = count-1; j >= 0; j--, i++)
+    stacked_windows[j] = windows[i];
+
+  XChangeProperty (dpy, DefaultRootWindow (dpy),
+                   XInternAtom (dpy, "_NET_CLIENT_LIST", False),
+                   XA_WINDOW, 32, PropModeReplace,
+                   (unsigned char *) windows, count);
+  XChangeProperty (dpy, DefaultRootWindow (dpy),
+                   XInternAtom (dpy, "_NET_CLIENT_LIST_STACKING", False),
+                   XA_WINDOW, 32, PropModeReplace,
+                   (unsigned char *) stacked_windows, count);
+  free (windows);
+  free (stacked_windows);
+}
+
+void
+ewmh_set_wm_desktop (rp_window *window)
+{
+  unsigned long data[1];
+
+  data[0] = rp_current_group->number;
+  XChangeProperty (dpy, window->w,
+                   XInternAtom (dpy, "_NET_WM_DESKTOP", False),
+                   XA_CARDINAL, 32, PropModeReplace,
+                   (unsigned char *) data, 1);
+
+}
